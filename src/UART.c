@@ -16,12 +16,12 @@ void uart_Init(void)
 
 	if(queueuart==pdFALSE)
 	{
-
+		//==========Mensaje de error en  creacion de cola==========//
 		printf("No se pudo crear COLA queueuart\r\n");
 
 		while(TRUE)
 		{
-
+		//=================Alerta de cola no creada =============//
 			gpioWrite(LED1,ON);
 
 		}
@@ -30,23 +30,23 @@ void uart_Init(void)
 
 
 	BaseType_t tarea=xTaskCreate(
-			uarttask,                     // Function that implements the task.
-			(const char *)"uarttask",     // Text name for the task.
-			configMINIMAL_STACK_SIZE*3, // Stack size in words, not bytes.
-			0,                          // Parameter passed into the task.
-			tskIDLE_PRIORITY+1,         // Priority at which the task is created.
-			0                           // Pointer to the task created in the system
+			uarttask,
+			(const char *)"uarttask",
+			configMINIMAL_STACK_SIZE*3,
+			0,
+			tskIDLE_PRIORITY+1,
+			0
 	);
 
 	if(tarea==pdFALSE)
 	{
-
+		//==========Mensaje de error de creacion de tarea==========//
 		printf("No se pudo crear tarea uarttask\r\n");
 
 		while(TRUE)
 
 		{
-
+		//=================Alerta de tarea no creada =============//
 			gpioWrite(LED1,ON);
 
 		}

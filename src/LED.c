@@ -36,22 +36,23 @@ static void LEDTASK( void* taskParmPtr );
 void ledInit(void)
 {
 	BaseType_t tarea=xTaskCreate(
-			LEDTASK,                     // Function that implements the task.
-			(const char *)"LEDTASK",     // Text name for the task.
-			configMINIMAL_STACK_SIZE*2, // Stack size in words, not bytes.
-			0,                          // Parameter passed into the task.
-			tskIDLE_PRIORITY+1,         // Priority at which the task is created.
-			0                           // Pointer to the task created in the system
+			LEDTASK,
+			(const char *)"LEDTASK",
+			configMINIMAL_STACK_SIZE*2,
+			0,
+			tskIDLE_PRIORITY+1,
+			0
 	);
 
 	if(tarea==pdFALSE)
 	{
 
+	//==========Mensaje de error de creacion de tarea==========//
 		printf("No se pudo crear tarea LED\r\n");
 
 		while(TRUE)
 		{
-
+	//=================Alerta de Tarea no creada =============//
 			gpioWrite(LED1,ON);
 
 		}

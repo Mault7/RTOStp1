@@ -15,28 +15,30 @@ static void buttons( void* taskParmPtr );
 void buttonsInit(void)
 {
 
+//=========inicializacion del antirebote==========//
 	debounceSM_Init(&tecla_1,TEC1);
 	debounceSM_Init(&tecla_2,TEC2);
-
+//================================================//
 
 	BaseType_t tarea=xTaskCreate(
-			buttons,                     // Function that implements the task.
-			(const char *)"buttons",     // Text name for the task.
-			configMINIMAL_STACK_SIZE*3 , // Stack size in words, not bytes.
-			0,                          // Parameter passed into the task.
-			tskIDLE_PRIORITY+1,         // Priority at which the task is created.
-			0                           // Pointer to the task created in the system
+			buttons,
+			(const char *)"buttons",
+			configMINIMAL_STACK_SIZE*3 ,
+			0,
+			tskIDLE_PRIORITY+1,
+			0
 	);
 
 	if(tarea==pdFALSE)
 	{
 
+	//==========Mensaje de error de creacion de tarea==========//
 		printf("No se pudo crear tarea buttons\r\n");
 
 		while(TRUE)
 
 		{
-
+	//=================Alerta de Tarea no creada =============//
 			gpioWrite(LED1,ON);
 
 		}
@@ -53,11 +55,15 @@ static void buttons( void* taskParmPtr )
 	while (TRUE)
 	{
 
+	//==========Actualiacion de botones==========//
 		debounceSM_Update(&tecla_1);
 
 		debounceSM_Update(&tecla_2);
+	//===========================================//
 
 		vTaskDelay(1/portTICK_RATE_MS);
+
+	//======== lectura de tiempos ante presionado de teclas ====//
 
 		if(tecla_1.buttonPressdifftime!=0)
 		{
@@ -84,5 +90,5 @@ static void buttons( void* taskParmPtr )
 		}
 
 	}
-
+	//========================================================//
 }
